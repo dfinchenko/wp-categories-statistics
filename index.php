@@ -5,7 +5,7 @@
  */
 /*
 Plugin Name: WP categories statistics
-Plugin URI: https://github.com/dfinchenko/wp-posts-tools
+Plugin URI: https://github.com/dfinchenko/wp-categories-statistics
 Description: Wordpress tools for working with categories statistics.
 Author: Denys Finchenko
 Version: 1.0
