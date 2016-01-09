@@ -1,2 +1,2 @@
-# wp-posts-tools
-Wordpress tools for working with posts
+# wp-categories-statistics
+Wordpress tools for working with categories statistics.
