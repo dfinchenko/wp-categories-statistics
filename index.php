@@ -13,6 +13,7 @@ Author URI: https://github.com/dfinchenko
 */
 
 add_action('admin_menu', 'awesome_page_create');
+
 function awesome_page_create() {
     $page_title = 'WP categories statistics';
     $menu_title = 'WP categories statistics';
