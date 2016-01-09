@@ -42,7 +42,7 @@ if( $all_cats ){ ?>
     <select name="cat[]">
 	<?php foreach( $all_cats as $cat ){ ?>
 
-<option value="<?php echo $cat->term_id; ?>"><?php echo $cat->name; ?></option>
+<option value="<?php echo $cat->term_id; ?>" <?php selected( $cat->term_id, $_POST['cat'][0] ); ?>><?php echo $cat->name; ?></option>
         <?php } ?>
 </select>
 <?php } ?>
