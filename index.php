@@ -12,9 +12,9 @@ Version: 1.0
 Author URI: https://github.com/dfinchenko
 */
 
-add_action('admin_menu', 'awesome_page_create');
+add_action('admin_menu', 'cats_stats_page_create');
 
-function awesome_page_create() {
+function cats_stats_page_create() {
     $page_title = 'WP categories statistics';
     $menu_title = 'WP categories statistics';
     $capability = 'edit_posts';
@@ -27,5 +27,5 @@ function awesome_page_create() {
 }
 
 function wp_cats_stats() {
-    echo '<h1>My Page!!!</h1>';
+    echo '<h1>WP categories statistics</h1>';
 }
