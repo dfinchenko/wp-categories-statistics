@@ -16,8 +16,8 @@ add_action('admin_menu', 'awesome_page_create');
 function awesome_page_create() {
     $page_title = 'WP categories statistics';
     $menu_title = 'WP categories statistics';
-    $capability = 'wp_categories_statistics';
-    $menu_slug = 'wp_cats_statss';
+    $capability = 'edit_posts ';
+    $menu_slug = 'wp_cats_stats';
     $function = 'wp_cats_stats';
     $icon_url = '';
     $position = 24;
