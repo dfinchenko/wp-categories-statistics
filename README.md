@@ -2,7 +2,8 @@
 Wordpress tools for working with categories statistics.
 
 -= Description =-
-Simple plugin, that give you to see statistics about categories. It shows how many posts are published in a particular date and category.
+
+A simple plugin, that give you to see statistics about categories. It shows how many posts are published in a particular date and category.
 
 -= Installation =-
 - Download the index.php file and upload the plugin to the `/wp-content/plugins/` directory.
