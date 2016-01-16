@@ -102,7 +102,7 @@ function get_categories_statistics_results() {
           $categories_statistics_results .= '</table><div class="col-md-4 col-md-offset-8"><label>Total Counts Posts Matches Your Criteria: '.count($query).'</label></div>';
 
         } else {
-            $categories_statistics_results .= '<h3>' . __( 'No posts in this category matches your criteria', 'wp-categories-statistics' ) . '</h3>';
+            $categories_statistics_results .= '<label>' . __( 'No posts in this category matches your criteria', 'wp-categories-statistics' ) . '</label>';
         }
         wp_reset_postdata();
         return $categories_statistics_results;
