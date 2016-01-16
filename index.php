@@ -12,20 +12,20 @@ Version: 1.0
 Author URI: https://github.com/dfinchenko
 */
 function cats_stats_scripts() {
-    wp_register_script( 'bootstrap-js', plugins_url('/lib/js/bootstrap.min.js', __FILE__) );
-    wp_register_style( 'bootstrap-styles',  plugins_url('/lib/css/bootstrap.min.css', __FILE__) );
-    wp_register_script( 'google_charts_api', 'https://www.google.com/jsapi' );
-    wp_enqueue_script( 'google_charts_api' );
+    wp_register_script('bootstrap-js', plugins_url('/lib/js/bootstrap.min.js', __FILE__));
+    wp_register_style('bootstrap-styles',  plugins_url('/lib/css/bootstrap.min.css', __FILE__));
+    wp_register_script('google_charts_api', 'https://www.google.com/jsapi');
+    wp_enqueue_script('google_charts_api');
 }
 
-add_action( 'admin_init', 'cats_stats_scripts' );
+add_action('admin_init', 'cats_stats_scripts');
 
 function cats_stats_plugin_scripts() {
-    wp_enqueue_script( 'bootstrap-js' );
+    wp_enqueue_script('bootstrap-js');
 }
 
 function cats_stats_plugin_styles() {
-    wp_enqueue_style( 'bootstrap-styles' );
+    wp_enqueue_style('bootstrap-styles');
 }
 
 function cats_stats_page_create() {
@@ -36,13 +36,13 @@ function cats_stats_page_create() {
     $function = 'wp_cats_stats_callback';
     $icon_url = '';
     $position = 24;
-    $page = add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
+    $page = add_menu_page($page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position);
 
-    add_action( 'admin_print_scripts-' . $page, 'cats_stats_plugin_scripts' );
-    add_action( 'admin_print_styles-' . $page, 'cats_stats_plugin_styles' );
+    add_action('admin_print_scripts-' . $page, 'cats_stats_plugin_scripts');
+    add_action('admin_print_styles-' . $page, 'cats_stats_plugin_styles');
 }
 
-add_action( 'admin_menu', 'cats_stats_page_create' );
+add_action('admin_menu', 'cats_stats_page_create');
 
 
 function wp_cats_stats() {
@@ -55,17 +55,19 @@ function wp_cats_stats() {
     return $all_cats;
 }
 
-function get_data_arrays_for_statistics( $jsons = NULL ) {
+function get_data_arrays_for_statistics($jsons = NULL) {
    $all_cats = wp_cats_stats();
     $rows_arrays = array();
     $options_arrays = array();
     $all_arrays = array();
-    foreach( $all_cats as $cat ){
-        $rows_arrays[] = array( (string)$cat->name, intval($cat->category_count) );
+
+    foreach($all_cats as $cat){
+        $rows_arrays[] = array((string)$cat->name, intval($cat->category_count));
         $options_arrays[$cat->term_id] = $cat->name;
     }
-    if( 'json' === $jsons ) {
-        $rows_data = json_encode( $rows_arrays );
+
+    if('json' === $jsons) {
+        $rows_data = json_encode($rows_arrays);
         return $rows_data;
     } else {
         return $options_arrays;
@@ -74,8 +76,8 @@ function get_data_arrays_for_statistics( $jsons = NULL ) {
  }
 
 function get_categories_statistics_results() {
-    if( isset( $_POST['submit'] ) ) {
-        $today = getdate( strtotime( $_POST['posts-date'] ) );
+    if(isset($_POST['submit'])) {
+        $today = getdate(strtotime($_POST['posts-date']));
         $args_posts = array(
             'showposts' => -1,
             'orderby' => 'ASC',
@@ -90,19 +92,19 @@ function get_categories_statistics_results() {
             ),
         );
 
-        $query = new WP_Query( $args_posts );
+        $query = new WP_Query($args_posts);
         $categories_statistics_results = '<label>' . __('Total Published Posts In Selected Category Matches Your Criteria:', 'wp-categories-statistics') . '</label>';
-        if ( $query->have_posts() ) {
+        if ($query->have_posts()) {
             $categories_statistics_results .= '<table class="table table-bordered">';
 
-	       while ( $query->have_posts() ) {
+	       while ($query->have_posts()) {
 		      $query->the_post();
 		      $categories_statistics_results .= '<tr><td class="success">' . get_the_title() . '</td></tr>';
 	       }
           $categories_statistics_results .= '</table><div class="col-md-4 col-md-offset-8"><label>Total Counts Posts Matches Your Criteria: '.count($query).'</label></div>';
 
         } else {
-            $categories_statistics_results .= '<label>' . __( 'No posts in this category matches your criteria', 'wp-categories-statistics' ) . '</label>';
+            $categories_statistics_results .= '<label>' . __('No posts in this category matches your criteria', 'wp-categories-statistics') . '</label>';
         }
         wp_reset_postdata();
         return $categories_statistics_results;
@@ -154,11 +156,12 @@ function wp_cats_stats_callback() { ?>
     <form method="post" action="" >
         <select name="cat[]" class="form-control">
             <?php
-            $current_cat = ( !empty($_POST['cat'][0]) ) ? $_POST['cat'][0] : 1;
+            $current_cat = (!empty($_POST['cat'][0])) ? $_POST['cat'][0] : 1;
             $options = get_data_arrays_for_statistics();
-            foreach( $options as $key => $value ) { ?>
 
-             <option value="<?php echo $key; ?>" <?php selected( $key, $current_cat ); ?>><?php echo $value; ?></option>
+            foreach($options as $key => $value) { ?>
+
+             <option value="<?php echo $key; ?>" <?php selected($key, $current_cat); ?>><?php echo $value; ?></option>
 
             <?php } ?>
     </select><br/>
@@ -172,7 +175,7 @@ function wp_cats_stats_callback() { ?>
 </div>
      <div class="row">
 
-<?php if( isset( $_POST['submit'] ) ) { echo get_categories_statistics_results(); } ?>
+<?php if(isset($_POST['submit'])) { echo get_categories_statistics_results(); } ?>
 
     </div>
 <?php } ?>
