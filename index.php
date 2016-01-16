@@ -34,12 +34,15 @@ function cats_stats_page_create() {
     $capability = 'edit_posts';
     $menu_slug = 'wp_cats_stats';
     $function = 'wp_cats_stats_callback';
-    $icon_url = '';
+    $icon_url = 'dashicons-chart-pie';
     $position = 24;
     $page = add_menu_page($page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position);
+    $sub_page = add_submenu_page($menu_slug, 'Categories Statistics By Criteria', 'Categories Statistics By Criteria', 'manage_options', 'wp_cats_stats_by_criteria', 'wp_cats_stats_by_criteria_callback');
 
     add_action('admin_print_scripts-' . $page, 'cats_stats_plugin_scripts');
     add_action('admin_print_styles-' . $page, 'cats_stats_plugin_styles');
+    add_action('admin_print_scripts-' . $sub_page, 'cats_stats_plugin_scripts');
+    add_action('admin_print_styles-' . $sub_page, 'cats_stats_plugin_styles');
 }
 
 add_action('admin_menu', 'cats_stats_page_create');
@@ -93,13 +96,13 @@ function get_categories_statistics_results() {
         );
 
         $query = new WP_Query($args_posts);
-        $categories_statistics_results = '<label>' . __('Total Published Posts In Selected Category Matches Your Criteria:', 'wp-categories-statistics') . '</label>';
+        $categories_statistics_results = '<div class="col-md-10 col-md-offset-2"><h3>' . __('Total Published Posts In Selected Category Matches Your Criteria', 'wp-categories-statistics') . '</h3></div>';
         if ($query->have_posts()) {
-            $categories_statistics_results .= '<table class="table table-bordered">';
+            $categories_statistics_results .= '<table class="table table-bordered"><tr><td><b>Posts Titles</b></td><td><b>Posts Authors</b></td><td><b>Authors Emails</b></td></tr>';
 
 	       while ($query->have_posts()) {
 		      $query->the_post();
-		      $categories_statistics_results .= '<tr><td class="success">' . get_the_title() . '</td></tr>';
+		      $categories_statistics_results .= '<tr><td><a href="'. get_the_permalink() .'" target="_blank">' . get_the_title() . '</a></td><td>' . get_the_author_meta('user_login') . '</td><td>' . get_the_author_meta('user_email') . '</td></tr>';
 	       }
           $categories_statistics_results .= '</table><div class="col-md-4 col-md-offset-8"><label>Total Counts Posts Matches Your Criteria: '.count($query).'</label></div>';
 
@@ -111,7 +114,7 @@ function get_categories_statistics_results() {
     }
 }
 
-function wp_cats_stats_callback() { ?>
+function wp_cats_stats_by_criteria_callback() { ?>
 
 <script type="text/javascript">
       // Load the Visualization API and the piechart package.
@@ -167,7 +170,7 @@ function wp_cats_stats_callback() { ?>
     </select><br/>
 
 <input type="date" name="posts-date" value="<?php echo $_POST['posts-date']; ?>" class="btn btn-default form-control" /><br/><br/>
-<input type="submit" name="submit" value="OK" class="btn btn-success" />
+<input type="submit" name="submit" value="OK" class="btn btn-primary" />
 </form>
 </div>
      <div class="col-md-9"> <div id="chart_div"></div>
@@ -178,4 +181,9 @@ function wp_cats_stats_callback() { ?>
 <?php if(isset($_POST['submit'])) { echo get_categories_statistics_results(); } ?>
 
     </div>
-<?php } ?>
+<?php }
+
+function wp_cats_stats_callback() {
+echo '<div class="row"><div class="col-md-11 col-md-offset-1"><h2>General statistics with different charts coming soon!</h2></div></div>';
+}
+?>
