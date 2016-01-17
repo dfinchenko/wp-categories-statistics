@@ -180,10 +180,10 @@ function wp_cats_stats_by_criteria_callback() { ?>
 
 <?php if(isset($_POST['submit'])) { echo get_categories_statistics_results(); } ?>
 
-    </div>
+    </div></div>
 <?php }
 
 function wp_cats_stats_callback() {
-echo '<div class="row"><div class="col-md-11 col-md-offset-1"><h2>General statistics with different charts coming soon!</h2></div></div>';
+echo '<div class="container"><div class="row"><div class="col-md-11 col-md-offset-1"><h2>General statistics with different charts coming soon!</h2></div></div></div>';
 }
 ?>
