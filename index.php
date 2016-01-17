@@ -148,7 +148,7 @@ function wp_cats_stats_by_criteria_callback() { ?>
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-  <h1>WP Categories Statistics</h1>
+  <h1>Categories Statistics By Criteria</h1>
             </div>
 
         </div>
