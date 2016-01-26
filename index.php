@@ -96,7 +96,7 @@ function get_categories_statistics_results() {
         );
 
         $query = new WP_Query($args_posts);
-        $categories_statistics_results = '<div class="col-md-10 col-md-offset-2"><h3>' . __('Total Published Posts In Selected Category Matches Your Criteria', 'wp-categories-statistics') . '</h3></div>';
+        $categories_statistics_results = '<div class="col-md-12"><h4 class="text-center">' . __('Total Published Posts In Selected Category Matches Your Criteria', 'wp-categories-statistics') . '</h4></div>';
         if ($query->have_posts()) {
             $categories_statistics_results .= '<table class="table table-bordered"><tr><td><b>Posts Titles</b></td><td><b>Posts Authors</b></td><td><b>Authors Emails</b></td></tr>';
 
@@ -104,10 +104,10 @@ function get_categories_statistics_results() {
 		      $query->the_post();
 		      $categories_statistics_results .= '<tr><td><a href="'. get_the_permalink() .'" target="_blank">' . get_the_title() . '</a></td><td>' . get_the_author_meta('user_login') . '</td><td>' . get_the_author_meta('user_email') . '</td></tr>';
 	       }
-          $categories_statistics_results .= '</table><div class="col-md-4 col-md-offset-8"><label>Total Counts Posts Matches Your Criteria: '.count($query).'</label></div>';
+          $categories_statistics_results .= '</table><div class="col-md-12"><h5 class="text-right">Total Counts Posts Matches Your Criteria: '.count($query).'</h5></div>';
 
         } else {
-            $categories_statistics_results .= '<label>' . __('No posts in this category matches your criteria', 'wp-categories-statistics') . '</label>';
+            $categories_statistics_results .= '<h4 class="text-center">' . __('No posts in this category matches your criteria', 'wp-categories-statistics') . '</h4>';
         }
         wp_reset_postdata();
         return $categories_statistics_results;
@@ -147,8 +147,8 @@ function wp_cats_stats_by_criteria_callback() { ?>
 </script>
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-  <h1>Categories Statistics By Criteria</h1>
+        <div class="col-md-12">
+  <h3 class="text-center">Categories Statistics By Criteria</h3>
             </div>
 
         </div>
@@ -177,13 +177,13 @@ function wp_cats_stats_by_criteria_callback() { ?>
     </div>
 </div>
      <div class="row">
-
+<div class="col-md-12">
 <?php if(isset($_POST['submit'])) { echo get_categories_statistics_results(); } ?>
 
     </div></div>
 <?php }
 
 function wp_cats_stats_callback() {
-echo '<div class="container"><div class="row"><div class="col-md-11 col-md-offset-1"><h2>General statistics with different charts coming soon!</h2></div></div></div>';
+echo '<div class="container"><div class="row"><div class="col-md-12"><h3 class="text-center">General statistics with different charts coming soon!</h3></div></div></div>';
 }
 ?>
